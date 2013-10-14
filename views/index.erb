@@ -1,11 +1,11 @@
 <h1>labels</h1>
-<form action="/labels" method="POST" target="_blank">
+<form action="/" method="POST" target="_blank">
 	<table>
 	<% (0..11).each do |i| %>
 		<tr>
 		<% (0..3).each do |j| %>
 			<td>
-				<select name="orientation<%= i %>_<%= j %>" rows="3" cols="15">
+				<select name="orientation<%= 11-i %>_<%= j %>" rows="3" cols="15">
 					<option value="horizontal">horizontal</option>
 					<option value="vertical">vertical</option>
 					<option value="verticalBig">vertical big</option>
@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 		<% (0..3).each do |j| %>
-			<td><textarea name="field<%= i %>_<%= j %>" rows="3" cols="15"></textarea></td>
+			<td><textarea name="field<%= 11-i %>_<%= j %>" rows="3" cols="15"></textarea></td>
 		<% end %>
 		</tr>
 	<% end %>
