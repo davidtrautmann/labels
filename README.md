@@ -11,6 +11,7 @@ install the sinatra and prawn gem
 ## howto
 
 
-## uses
+## utilizes
 [sinatra](https://github.com/sinatra/sinatra)
 [sinatra-prawn](https://github.com/sbfaulkner/sinatra-prawn)
+[json](https://github.com/flori/json/tree/master)

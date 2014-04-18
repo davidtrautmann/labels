@@ -1,0 +1,20 @@
+/**
+ * label paper
+ */
+{
+	"paper_styles": [
+		{
+			"paper_name": "testpaper",
+
+			"page_size": "A4",
+			"margin_top": "21.5",
+		  	"margin_right": "9.75",
+		  	"margin_bottom": "21.5",
+		  	"margin_left": "9.75",
+	  		"width": "45.72",
+			"height": "21.167",
+			"size_standard": "14",
+			"size_big": "22"
+		}
+  	]
+}
