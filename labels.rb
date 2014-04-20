@@ -15,7 +15,11 @@ paper_styles = JSON.parse(File.read('paper.json'))['paper_styles']
 #
 get '/' do
   # TODO change paperstyle
-  erb :index
+  erb :index,
+  locals: {
+    rows: paper_styles[0]['rows'].to_i,
+    columns: paper_styles[0]['columns'].to_i
+  }
 end
 
 ##
@@ -45,8 +49,8 @@ post '/' do
   Prawn::Document.generate 'labels.pdf',
   margin: margin,
   page_size: paper_styles[0]['page_size'] do
-    (0..(rows-1)).each do |row|
-      (0..(columns-1)).each do |column|
+    (0..(rows - 1)).each do |row|
+      (0..(columns - 1)).each do |column|
         size = size_standard
 
         # POST parameters from form
