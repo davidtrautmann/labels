@@ -26,14 +26,16 @@ post '/' do
   # TODO multiple paper_styles in json
   margin = [
     paper_styles[0]['margin_top'].to_f.mm,
-    paper_styles[0]['margin_top'].to_f.mm,
-    paper_styles[0]['margin_top'].to_f.mm,
-    paper_styles[0]['margin_top'].to_f.mm
+    paper_styles[0]['margin_right'].to_f.mm,
+    paper_styles[0]['margin_bottom'].to_f.mm,
+    paper_styles[0]['margin_left'].to_f.mm
   ]
   height = paper_styles[0]['height'].to_f.mm
   width = paper_styles[0]['width'].to_f.mm
   size_standard = paper_styles[0]['size_standard'].to_i
   size_big = paper_styles[0]['size_big'].to_i
+  rows = paper_styles[0]['rows'].to_i
+  columns = paper_styles[0]['columns'].to_i
 
   # variable used for all cells
   rotation = 0
@@ -41,10 +43,10 @@ post '/' do
 
   # call prawn document generator
   Prawn::Document.generate 'labels.pdf',
-  :margin => margin,
-  :page_size => paper_styles[0]['page_size'] do
-    (0..11).each do |row|
-      (0..3).each do |column|
+  margin: margin,
+  page_size: paper_styles[0]['page_size'] do
+    (0..(rows-1)).each do |row|
+      (0..(columns-1)).each do |column|
         size = size_standard
 
         # POST parameters from form
@@ -78,15 +80,15 @@ post '/' do
 
         # create the textbox
         text_box cell,
-          :at => [(column * width) + dx , ((row + 1) * height) + dy ],
-          :height => height_after_rotation,
-          :width => width_after_rotation,
-          :size => size,
-          :align => :center,
-          :valign => :center,
-          :rotate_around => :center,
-          :rotate => rotation,
-          :style => :bold
+          at: [(column * width) + dx , ((row + 1) * height) + dy ],
+          height: height_after_rotation,
+          width: width_after_rotation,
+          size: size,
+          align: :center,
+          valign: :center,
+          rotate_around: :center,
+          rotate: rotation,
+          style: :bold
         column += 1
       end
       column = 0
@@ -95,7 +97,7 @@ post '/' do
   end
 
   # return the odf file as the correct type
-  send_file 'labels.pdf', :type => 'application/pdf', :disposition => 'inline'
+  send_file 'labels.pdf', type: 'application/pdf', disposition: 'inline'
 end
 
 ##
