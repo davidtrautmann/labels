@@ -14,12 +14,12 @@ paper_styles = JSON.parse(File.read('paper.json'))['paper_styles']
 # get action to show the input form
 #
 get '/' do
-  # TODO change paperstyle
+  # TODO: change paperstyle
   erb :index,
-  locals: {
-    rows: paper_styles[0]['rows'].to_i,
-    columns: paper_styles[0]['columns'].to_i
-  }
+    locals: {
+      rows: paper_styles[0]['rows'].to_i,
+      columns: paper_styles[0]['columns'].to_i
+    }
 end
 
 ##
@@ -27,19 +27,19 @@ end
 #
 post '/' do
   # paper style
-  # TODO multiple paper_styles in json
+  # TODO: multiple paper_styles in json
   margin = [
     paper_styles[0]['margin_top'].to_f.mm,
     paper_styles[0]['margin_right'].to_f.mm,
     paper_styles[0]['margin_bottom'].to_f.mm,
     paper_styles[0]['margin_left'].to_f.mm
   ]
-  height = paper_styles[0]['height'].to_f.mm
-  width = paper_styles[0]['width'].to_f.mm
+  height        = paper_styles[0]['height'].to_f.mm
+  width         = paper_styles[0]['width'].to_f.mm
   size_standard = paper_styles[0]['size_standard'].to_i
-  size_big = paper_styles[0]['size_big'].to_i
-  rows = paper_styles[0]['rows'].to_i
-  columns = paper_styles[0]['columns'].to_i
+  size_big      = paper_styles[0]['size_big'].to_i
+  rows          = paper_styles[0]['rows'].to_i
+  columns       = paper_styles[0]['columns'].to_i
 
   # variable used for all cells
   rotation = 0
@@ -47,7 +47,7 @@ post '/' do
 
   # call prawn document generator
   Prawn::Document.generate 'labels.pdf',
-  margin: margin,
+  margin:    margin,
   page_size: paper_styles[0]['page_size'] do
     (0..(rows - 1)).each do |row|
       (0..(columns - 1)).each do |column|
@@ -64,27 +64,27 @@ post '/' do
 
         # get orientation from post parameters
         case orientation
-          when 'vertical', 'verticalBig'
-            rotation = 90
-            # swap height and width due to rotation
-            height_after_rotation = width
-            width_after_rotation = height
-            # location adjustments due to rotation
-            # TODO calculate from height and width
-            dx = 12.9.mm
-            dy = 12.9.mm
-            # uppercase and big fontsize fro verticalBig
-            if orientation == 'verticalBig'
-              cell = to_upcase_vertical(cell)
-              size = size_big
-            end
-          else
-            rotation = 0
+        when 'vertical', 'verticalBig'
+          rotation = 90
+          # swap height and width due to rotation
+          height_after_rotation = width
+          width_after_rotation = height
+          # location adjustments due to rotation
+          # TODO: calculate from height and width
+          dx = 12.9.mm
+          dy = 12.9.mm
+          # uppercase and big fontsize fro verticalBig
+          if orientation == 'verticalBig'
+            cell = to_upcase_vertical(cell)
+            size = size_big
+          end
+        else
+          rotation = 0
         end
 
         # create the textbox
         text_box cell,
-          at: [(column * width) + dx , ((row + 1) * height) + dy ],
+          at: [(column * width) + dx , ((row + 1) * height) + dy],
           height: height_after_rotation,
           width: width_after_rotation,
           size: size,
@@ -93,10 +93,7 @@ post '/' do
           rotate_around: :center,
           rotate: rotation,
           style: :bold
-        column += 1
       end
-      column = 0
-      row += 1
     end
   end
 
@@ -107,11 +104,10 @@ end
 ##
 # method to make a text uppercase and vertical
 #
-def to_upcase_vertical(text)
-  text_array = text.split("")
-  text = ""
-  text_array.each do |letter|
-    text << letter.upcase << "\n"
+def to_upcase_vertical(cell_text)
+  text_vertical = ''
+  cell_text.split('').each do |letter|
+    text_vertical << "#{letter.upcase}\n"
   end
-  return text
+  return text_vertical
 end
