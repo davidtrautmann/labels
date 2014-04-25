@@ -8,38 +8,41 @@ require 'json'
 set :port, 5656
 
 # read paper styles from json file
-paper_styles = JSON.parse(File.read('paper.json'))['paper_styles']
+paper_styles = JSON.parse(File.read('resources/paper.json'))['paper_styles']
 
 ##
 # get action to show the input form
 #
-get '/' do
+get '/:paper' do
   # TODO: change paperstyle
+  paper = params[:paper].to_i
   erb :index,
     locals: {
-      rows: paper_styles[0]['rows'].to_i,
-      columns: paper_styles[0]['columns'].to_i
+      paper: paper,
+      rows: paper_styles[paper]['rows'].to_i,
+      columns: paper_styles[paper]['columns'].to_i
     }
 end
 
 ##
 # post action to generate the pdf
 #
-post '/' do
+post '/:paper' do
   # paper style
+  paper = params[:paper].to_i
   # TODO: multiple paper_styles in json
   margin = [
-    paper_styles[0]['margin_top'].to_f.mm,
-    paper_styles[0]['margin_right'].to_f.mm,
-    paper_styles[0]['margin_bottom'].to_f.mm,
-    paper_styles[0]['margin_left'].to_f.mm
+    paper_styles[paper]['margin_top'].to_f.mm,
+    paper_styles[paper]['margin_right'].to_f.mm,
+    paper_styles[paper]['margin_bottom'].to_f.mm,
+    paper_styles[paper]['margin_left'].to_f.mm
   ]
-  height        = paper_styles[0]['height'].to_f.mm
-  width         = paper_styles[0]['width'].to_f.mm
-  size_standard = paper_styles[0]['size_standard'].to_i
-  size_big      = paper_styles[0]['size_big'].to_i
-  rows          = paper_styles[0]['rows'].to_i
-  columns       = paper_styles[0]['columns'].to_i
+  height        = paper_styles[paper]['height'].to_f.mm
+  width         = paper_styles[paper]['width'].to_f.mm
+  size_standard = paper_styles[paper]['size_standard'].to_i
+  size_big      = paper_styles[paper]['size_big'].to_i
+  rows          = paper_styles[paper]['rows'].to_i
+  columns       = paper_styles[paper]['columns'].to_i
 
   # variable used for all cells
   rotation = 0
