@@ -8,7 +8,7 @@ require 'json'
 set :port, 5656
 
 # read paper styles from json file
-paper_styles = JSON.parse(File.read('resources/paper.json'))['paper_styles']
+paper_styles = JSON.parse(File.read('./public/paper.json'))['paper_styles']
 
 ##
 # get action to show the input form
@@ -18,6 +18,7 @@ get '/:paper' do
   paper = params[:paper].to_i
   erb :index,
     locals: {
+      paper_styles: paper_styles,
       paper: paper,
       rows: paper_styles[paper]['rows'].to_i,
       columns: paper_styles[paper]['columns'].to_i

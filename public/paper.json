@@ -17,6 +17,21 @@
       "size_big": "22",
       "rows": "12",
       "columns": "4"
+    },
+    {
+      "paper_name": "testpaper2",
+
+      "page_size": "A4",
+      "margin_top": "21.5",
+      "margin_right": "9.75",
+      "margin_bottom": "21.5",
+      "margin_left": "9.75",
+      "width": "91.44",
+      "height": "42.334",
+      "size_standard": "28",
+      "size_big": "44",
+      "rows": "6",
+      "columns": "2"
     }
   ]
 }
