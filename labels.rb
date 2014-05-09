@@ -11,6 +11,13 @@ set :port, 5656
 paper_styles = JSON.parse(File.read('./public/paper.json'))['paper_styles']
 
 ##
+# get action for initial url
+#
+get '/'  do
+  redirect '/0'
+end
+
+##
 # get action to show the input form
 #
 get '/:paper' do
