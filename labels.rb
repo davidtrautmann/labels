@@ -1,6 +1,7 @@
 # labels.rb
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/url_for'
 require 'prawn'
 require 'prawn/measurement_extensions'
 require 'json'
