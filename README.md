@@ -7,6 +7,7 @@ these kind of labels are used by libraries to tag books e.a. with author shortcu
 install the sinatra, prawn and json gems:
 
 ```shell
+git clone git@github.com:davidtrautmann/labels.git
 bundle install
 bundle update
 ```
@@ -42,6 +43,8 @@ ruby labels.rb
 
 
 ## utilizes
-[sinatra](https://github.com/sinatra/sinatra) /
-[sinatra-prawn](https://github.com/sbfaulkner/sinatra-prawn) /
+[sinatra](https://github.com/sinatra/sinatra)
+
+[sinatra-prawn](https://github.com/sbfaulkner/sinatra-prawn)
+
 [json](https://github.com/flori/json/tree/master)
